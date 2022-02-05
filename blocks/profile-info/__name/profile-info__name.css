@@ -1,0 +1,15 @@
+.profile-info__name {
+  font-size: 42px;
+  line-height: 48px;
+  font-weight: 500;
+  color: #fff;
+  margin: 0;
+}
+
+@media (max-width: 767px) {
+  .profile-info__name {
+    text-align: center;
+    font-size: 27px;
+    line-height: 33px;
+  }
+}
