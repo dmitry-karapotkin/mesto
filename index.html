@@ -19,7 +19,7 @@
         <div class="profile-info">
           <img class="profile-info__photo" src="images/mesto-kusto.svg" alt="фотка кусто">
             <div class="profile-info__first-row">
-              <p class="profile-info__name">Жак-Ив Кусто</p>
+              <h1 class="profile-info__name">Жак-Ив Кусто</h1>
               <button class="profile-info__edit-button">
                 <img class="profile-info__edit-icon" src="images/mesto-edit-icon.svg" alt="изменить">
               </button>
@@ -31,42 +31,42 @@
         </button>
       </section>
       <section class="elements">
-        <figure class="element">
+        <figure class="elements__item element">
           <img class="element__photo" src="./images/mesto-six-places_1.jpg" alt="байкал">
           <figcaption class="element__caption">
             <p class="element__caption-text">Байкал</p>
             <img class="element__like-button" src="images/mesto-heart-icon-white.svg" alt="лайк">
           </figcaption>
         </figure>
-        <figure class="element">
+        <figure class="elements__item element">
           <img class="element__photo" src="./images/mesto-six-places_2.jpg" alt="собака на стоге">
           <figcaption class="element__caption">
             <p class="element__caption-text">Подмосковье</p>
             <img class="element__like-button" src="images/mesto-heart-icon-white.svg" alt="лайк">
           </figcaption>
         </figure>
-        <figure class="element">
+        <figure class="elements__item element">
           <img class="element__photo" src="./images/mesto-six-places_3.jpg" alt="природа и ноут">
           <figcaption class="element__caption">
             <p class="element__caption-text">Алтай</p>
             <img class="element__like-button" src="images/mesto-heart-icon-white.svg" alt="лайк">
           </figcaption>
         </figure>
-        <figure class="element">
+        <figure class="elements__item element">
           <img class="element__photo" src="./images/mesto-six-places_4.jpg" alt="карелия">
           <figcaption class="element__caption">
             <p class="element__caption-text">Карелия</p>
             <img class="element__like-button" src="images/mesto-heart-icon-white.svg" alt="лайк">
           </figcaption>
         </figure>
-        <figure class="element">
+        <figure class="elements__item element">
           <img class="element__photo" src="./images/mesto-six-places_5.jpg" alt="кольский">
           <figcaption class="element__caption">
             <p class="element__caption-text">Кольский полуостров</p>
             <img class="element__like-button" src="images/mesto-heart-icon-white.svg" alt="лайк">
           </figcaption>
         </figure>
-        <figure class="element">
+        <figure class="elements__item element">
           <img class="element__photo" src="./images/mesto-six-places_6.jpg" alt="коса">
           <figcaption class="element__caption">
             <p class="element__caption-text">Куршская коса</p>
@@ -75,11 +75,11 @@
         </figure>
       </section>
       <section class="popup">
-        <form class="popup__form">
+        <form class="popup__form" name="редактирование профиля">
           <h2 class="popup__title">Редактировать профиль</h2>
-          <input class="popup__input-name" type="text">
-          <input class="popup__input-job" type="text">
-          <input class="popup__save-button" type="submit" value="Сохранить">
+          <input class="popup__input popup__input_type_name" type="text">
+          <input class="popup__input popup__input_type_job" type="text">
+          <button class="popup__save-button">Сохранить</button>
           <img class="popup__close-button" src="./images/mesto-close-icon.svg" alt="закрыть">
         </form>
       </section>
@@ -90,6 +90,6 @@
     </footer>
 
   </div>
-  <script src="index.js"></script>
+  <script src="./scripts/index.js"></script>
 </body>
 </html>

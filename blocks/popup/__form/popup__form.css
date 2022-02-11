@@ -1,6 +1,5 @@
 .popup__form {
-  width: 430px;
-  margin: 195px auto;
+  max-width: 430px;
   border-radius: 10px;
   background-color: white;
   display: flex;
@@ -11,7 +10,7 @@
 
 @media (max-width: 767px) {
   .popup__form {
-    width: 282px;
+    max-width: 282px;
     padding: 25px 22px;
   }
 }
