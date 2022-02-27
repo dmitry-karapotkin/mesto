@@ -1,9 +1,9 @@
-.popup__input_type_job {
+.popup__input_type_second-row {
   margin: 0 0 48px;
 }
 
 @media (max-width: 767px) {
-  .popup__input_type_job {
+  .popup__input_type_second-row {
     margin-bottom: 45px;
   }
 }

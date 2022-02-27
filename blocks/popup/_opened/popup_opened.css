@@ -1,6 +1,5 @@
-.popup_opened {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.popup.popup_opened {
+  opacity: 1;
+  visibility: visible;
+  height: 100vh;
 }
