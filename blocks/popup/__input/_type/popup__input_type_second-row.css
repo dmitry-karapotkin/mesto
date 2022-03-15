@@ -1,9 +1,9 @@
 .popup__input_type_second-row {
-  margin: 0 0 48px;
+  margin: 0 0 29px;
 }
 
 @media (max-width: 767px) {
   .popup__input_type_second-row {
-    margin-bottom: 45px;
+    margin-bottom: 41px;
   }
 }

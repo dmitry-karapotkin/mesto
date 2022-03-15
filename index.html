@@ -39,18 +39,22 @@
       <section class="popup popup_type_profile">
         <form class="popup__form" name="edit-profile-info">
           <h2 class="popup__title">Редактировать профиль</h2>
-          <input class="popup__input popup__input_type_first-row" type="text">
-          <input class="popup__input popup__input_type_second-row" type="text">
+          <input class="popup__input popup__input_type_first-row" id="first-row" type="text" minlength="2" maxlength="40" required>
+          <span class="popup__error first-row-input-error"></span>
+          <input class="popup__input popup__input_type_second-row" id="second-row" type="text" minlength="2" maxlength="200" required>
+          <span class="popup__error second-row-input-error"></span>
           <button class="popup__save-button">Сохранить</button>
           <img class="popup__close-button" src="./images/mesto-close-icon.svg" alt="закрыть">
         </form>
       </section>
 
       <section class="popup popup_type_place">
-        <form class="popup__form" name="edit profile info">
+        <form class="popup__form" name="new-place">
           <h2 class="popup__title">Новое место</h2>
-          <input class="popup__input popup__input_type_first-row" type="text" placeholder="Название">
-          <input class="popup__input popup__input_type_second-row" type="text" placeholder="Ссылка на картинку">
+          <input class="popup__input popup__input_type_first-row" id="first-row" type="text" placeholder="Название" minlength="2" maxlength="30" required>
+          <span class="popup__error first-row-input-error"></span>
+          <input class="popup__input popup__input_type_second-row" id="second-row" type="url" placeholder="Ссылка на картинку" required>
+          <span class="popup__error second-row-input-error"></span>
           <button class="popup__save-button">Создать</button>
           <img class="popup__close-button" src="./images/mesto-close-icon.svg" alt="закрыть">
         </form>
@@ -82,5 +86,6 @@
 
   </div>
   <script src="./scripts/index.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 </html>
