@@ -51,11 +51,11 @@
       <section class="popup popup_type_place">
         <form class="popup__form" name="new-place">
           <h2 class="popup__title">Новое место</h2>
-          <input class="popup__input popup__input_type_first-row" id="place-name" type="text" placeholder="Название" minlength="2" maxlength="30" required>
+          <input class="popup__input popup__input_type_first-row" id="place-name" type="text" placeholder="Название" minlength="2" maxlength="30" value="" required>
           <span class="popup__error place-name-input-error"></span>
-          <input class="popup__input popup__input_type_second-row" id="place-url" type="url" placeholder="Ссылка на картинку" required>
+          <input class="popup__input popup__input_type_second-row" id="place-url" type="url" placeholder="Ссылка на картинку" value="" required>
           <span class="popup__error place-url-input-error"></span>
-          <button class="popup__save-button">Создать</button>
+          <button class="popup__save-button popup__save-button_disabled" disabled>Создать</button>
           <img class="popup__close-button" src="./images/mesto-close-icon.svg" alt="закрыть">
         </form>
       </section>

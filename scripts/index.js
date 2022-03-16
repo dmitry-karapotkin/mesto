@@ -40,6 +40,7 @@ const closePlaceButton = popupPlace.querySelector('.popup__close-button');
 const placeForm = popupPlace.querySelector('.popup__form');
 const inputPlace = placeForm.querySelector('.popup__input_type_first-row');
 const inputLink = placeForm.querySelector('.popup__input_type_second-row');
+const submitPlaceButton = placeForm.querySelector('.popup__save-button');
 
 const popupElement = document.querySelector('.popup_type_element');
 const closeElementButton = popupElement.querySelector('.popup__close-button');
@@ -55,15 +56,14 @@ const addButton = document.querySelector('.profile__add-button');
 
 function handlePressEscapeKey (evt) {
   if (evt.key === 'Escape') {
-    closePopup(evt.target.closest('.popup'));
-    evt.target.removeEventListener('keydown', handlePressEscapeKey);
+    const popup = document.querySelector('.popup_opened');
+    closePopup(popup);
   }
 };
 
 function openPopup(popup) {
-  const inputList = Array.from(document.querySelectorAll('.popup__input_type_first-row, .popup__input_type_second-row'));
   popup.classList.add('popup_opened');
-  inputList.forEach(inputElement => inputElement.addEventListener('keydown', handlePressEscapeKey));
+  document.addEventListener('keydown', handlePressEscapeKey);
 };
 
 function openPopupProfile () {
@@ -84,18 +84,17 @@ function openPopupElement (photo, text) {
 };
 
 function closePopup(popup) {
-  const inputFirstRow = popup.querySelector('.popup__input_type_first-row');
-  const inputSecondRow = popup.querySelector('.popup__input_type_second-row');
   popup.classList.remove('popup_opened');
-  inputFirstRow.value = '';
-  inputSecondRow.value = '';
+  document.removeEventListener('keydown', handlePressEscapeKey);
 };
 
 function closePopupProfile () {
   closePopup(popupProfile);
 };
+
 function closePopupPlace () {
   closePopup(popupPlace);
+  popupPlace.querySelector('.popup__form').reset();
 };
 
 function closePopupElement () {
@@ -144,6 +143,8 @@ function handlePlaceFormSubmit(evt) {
   inputPlace.value = '';
   inputLink.value = '';
   closePopup(popupPlace);
+  submitPlaceButton.classList.add('popup__save-button_disabled');
+  submitPlaceButton.disabled = true;
 };
 
 initialCards.forEach((item) => sectionElements.prepend(createElement(item.name, item.link)));
