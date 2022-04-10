@@ -1,3 +1,6 @@
+import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -78,10 +81,12 @@ function openPopupPlace () {
 
 function openPopupElement (photo, text) {
   openPopup(popupElement);
-  popupPhoto.src = photo.src;
-  popupPhoto.alt = text.textContent.toLowerCase();
-  popupCaption.textContent = text.textContent;
+  popupPhoto.src = photo;
+  popupPhoto.alt = text.toLowerCase();
+  popupCaption.textContent = text;
 };
+
+export { openPopupElement };
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
@@ -101,35 +106,6 @@ function closePopupElement () {
   closePopup(popupElement)
 };
 
-function toggleLikeButton (evt) {
-  if (evt.target.src.includes('white')) {
-    evt.target.src = 'images/mesto-heart-icon-black.svg'
-  } else {
-    evt.target.src = 'images/mesto-heart-icon-white.svg'
-  }
-};
-
-function deleteElement (evt) {
-  evt.target.closest('.element').remove();
-};
-
-function createElement(textValue, srcValue) {
-  const newElement = templateElement.cloneNode(true);
-  const elementPhoto = newElement.querySelector('.element__photo');
-  const elementText =  newElement.querySelector('.element__caption-text');
-  const likeButton = newElement.querySelector('.element__like-button');
-  const trashButton = newElement.querySelector('.element__trash-button');
-  elementPhoto.addEventListener('click', () => openPopupElement(elementPhoto, elementText));
-  likeButton.addEventListener('click', toggleLikeButton);
-  trashButton.addEventListener('click', deleteElement);
-
-  elementPhoto.src = srcValue;
-  elementPhoto.alt = textValue.toLowerCase();
-  elementText.textContent = textValue;
-
-  return newElement;
-};
-
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = inputName.value;
@@ -139,7 +115,8 @@ function handleProfileFormSubmit(evt) {
 
 function handlePlaceFormSubmit(evt) {
   evt.preventDefault();
-  sectionElements.prepend(createElement(inputPlace.value, inputLink.value));
+  const card = new Card(inputPlace.value, inputLink.value);
+  sectionElements.prepend(card.generateCard());
   inputPlace.value = '';
   inputLink.value = '';
   closePopup(popupPlace);
@@ -147,7 +124,11 @@ function handlePlaceFormSubmit(evt) {
   submitPlaceButton.disabled = true;
 };
 
-initialCards.forEach((item) => sectionElements.prepend(createElement(item.name, item.link)));
+initialCards.forEach((item) => {
+  const card = new Card(item.name, item.link);
+  sectionElements.prepend(card.generateCard());
+  }
+);
 
 popupList.forEach((popupElement) => {
   popupElement.addEventListener('click', evt => evt.target.classList.contains('popup') ? closePopup(popupElement) : NaN);
@@ -160,3 +141,10 @@ closePlaceButton.addEventListener('click', closePopupPlace);
 closeElementButton.addEventListener('click', closePopupElement);
 profileForm.addEventListener('submit', handleProfileFormSubmit);
 placeForm.addEventListener('submit', handlePlaceFormSubmit);
+
+const formList = Array.from(document.querySelectorAll('.popup__form'));
+
+formList.forEach(formElement => {
+  const validator = new FormValidator(settingDict, formElement);
+  validator.enableValidation();
+});
