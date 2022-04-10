@@ -1,12 +1,3 @@
-const settingDict = {
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'popup__save-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible',
-  cancelClass: '.popup__close-button'
-};
-
 class FormValidator {
   constructor (settingDict, formElement) {
     this._inputSelector = settingDict.inputSelector;
@@ -51,7 +42,7 @@ class FormValidator {
       this._buttonElement.disabled = true;
     } else {
       this._buttonElement.classList.remove(this._inactiveButtonClass);
-      thid._buttonElement.disabled = false;
+      this._buttonElement.disabled = false;
     }
   };
 

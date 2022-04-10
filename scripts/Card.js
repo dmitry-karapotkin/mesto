@@ -16,13 +16,10 @@ class Card {
   }
 
   _setEventListeners () {
-    this._element
-    .querySelector('.element__photo')
-    .addEventListener('click', () => openPopupElement(this._link, this._place));
+    this._cardImage.addEventListener('click', () => openPopupElement(this._link, this._place));
 
-    this._element
-    .querySelector('.element__like-button')
-    .addEventListener('click', () => this._toggleLikeButton());
+    this._likeButton = this._element.querySelector('.element__like-button');
+    this._likeButton.addEventListener('click', () => this._toggleLikeButton());
 
     this._element
     .querySelector('.element__trash-button')
@@ -31,11 +28,10 @@ class Card {
   }
 
   _toggleLikeButton () {
-    const likeButton = this._element.querySelector('.element__like-button');
-    if (likeButton.src.includes('white')) {
-      likeButton.src = 'images/mesto-heart-icon-black.svg'
+    if (this._likeButton.src.includes('white')) {
+      this._likeButton.src = 'images/mesto-heart-icon-black.svg'
   } else {
-    likeButton.src = 'images/mesto-heart-icon-white.svg'
+    this._likeButton.src = 'images/mesto-heart-icon-white.svg'
     }
   }
 
@@ -45,8 +41,9 @@ class Card {
 
   generateCard () {
     this._element = this._getTemplate();
-    this._element.querySelector('.element__photo').src = this._link;
-    this._element.querySelector('.element__photo').alt = this._place.toLowerCase();
+    this._cardImage = this._element.querySelector('.element__photo');
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._place.toLowerCase();
     this._element.querySelector('.element__caption-text').textContent = this._place;
 
     this._setEventListeners();
