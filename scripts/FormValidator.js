@@ -5,7 +5,6 @@ class FormValidator {
     this._inactiveButtonClass = settingDict.inactiveButtonClass;
     this._inputErrorClass = settingDict.inputErrorClass;
     this._errorClass = settingDict.errorClass;
-    this._cancelClass = settingDict.cancelClass;
 
     this._formElement = formElement;
   }
@@ -51,7 +50,6 @@ class FormValidator {
 
     this._inputList.forEach(inputElement => {
 
-
     inputElement.addEventListener('input', () => {
 
       this._isValid(inputElement);
@@ -62,26 +60,18 @@ class FormValidator {
     })
   };
 
-
-  _setEventListeners () {
-    const cancelElement = this._formElement.querySelector(this._cancelClass);
-
-
-    cancelElement.addEventListener('click', () => {
-
-      this._inputList.forEach(inputElement => this._hideInputError(inputElement));
-      this._buttonElement.classList.remove(this._inactiveButtonClass);
-      this._buttonElement.disabled = false;
-
-    });
-  }
-
   enableValidation () {
     this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
     this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
 
     this._setValidationRules();
-    this._setEventListeners();
+  };
+
+  resetValidation () {
+    this._toggleButtonState();
+    this._inputList.forEach(inputElement => {
+      this._hideInputError(inputElement)
+    })
   };
 
 }

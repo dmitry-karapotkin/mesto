@@ -1,8 +1,14 @@
 .element__like-button {
-  width: 22px;
+  width: 24px;
   height: 19px;
   cursor: pointer;
   transition: opacity 0.5s;
+  background-image: url(../../../images/mesto-heart-icon-white.svg);
+  background-color: white;
+  background-size: 22px, 19px, contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 0;
 }
 
 .element__like-button:hover {
@@ -12,7 +18,4 @@
 .element__like-button:active {
   opacity: 1;
   background-image: url(../../../images/mesto-heart-icon-black.svg);
-  background-size: 22px, 19px, contain;
-  background-position: center;
-  background-repeat: no-repeat;
 }
