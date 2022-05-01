@@ -1,4 +1,4 @@
-class FormValidator {
+export default class FormValidator {
   constructor (settingDict, formElement) {
     this._inputSelector = settingDict.inputSelector;
     this._submitButtonSelector = settingDict.submitButtonSelector;
@@ -75,5 +75,3 @@ class FormValidator {
   };
 
 }
-
-export { FormValidator };

@@ -3,31 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
     <title>Место | Россия</title>
 </head>
 <body>
   <div class="page">
 
     <header class="header">
-      <img class="header__logo" src="images/mesto-logo.svg" alt="лого в шапке">
+      <img class="header__logo" src="<%=require('./images/mesto-logo.svg')%>" alt="лого в шапке">
     </header>
 
     <main class="content">
       <section class="profile">
 
         <div class="profile-info">
-          <img class="profile-info__photo" src="images/mesto-kusto.svg" alt="фотка кусто">
+          <img class="profile-info__photo" src="<%=require('./images/mesto-kusto.svg')%>" alt="фотка кусто">
             <div class="profile-info__first-row">
               <h1 class="profile-info__name">Жак-Ив Кусто</h1>
               <button class="profile-info__edit-button">
-                <img class="profile-info__edit-icon" src="images/mesto-edit-icon.svg" alt="изменить">
+                <img class="profile-info__edit-icon" src="<%=require('./images/mesto-edit-icon.svg')%>" alt="изменить">
               </button>
             </div>
             <p class="profile-info__job">Исследователь океана</p>
         </div>
         <button class="profile__add-button">
-          <img class="profile__add-icon" src="images/mesto-plus-icon.svg" alt="добавить">
+          <img class="profile__add-icon" src="<%=require('./images/mesto-plus-icon.svg')%>" alt="добавить">
         </button>
 
       </section>
@@ -44,7 +43,7 @@
           <input class="popup__input popup__input_type_second-row" id="profile-title" type="text" minlength="2" maxlength="200" required>
           <span class="popup__error profile-title-input-error"></span>
           <button class="popup__save-button">Сохранить</button>
-          <img class="popup__close-button" src="./images/mesto-close-icon.svg" alt="закрыть">
+          <img class="popup__close-button" src="<%=require('./images/mesto-close-icon.svg')%>" alt="закрыть">
         </form>
       </section>
 
@@ -56,14 +55,14 @@
           <input class="popup__input popup__input_type_second-row" id="place-url" type="url" placeholder="Ссылка на картинку" value="" required>
           <span class="popup__error place-url-input-error"></span>
           <button class="popup__save-button popup__save-button_disabled" disabled>Создать</button>
-          <img class="popup__close-button" src="./images/mesto-close-icon.svg" alt="закрыть">
+          <img class="popup__close-button" src="<%=require('./images/mesto-close-icon.svg')%>" alt="закрыть">
         </form>
       </section>
 
       <section class="popup popup_type_element">
         <figure class="popup__element">
           <img class="popup__image" src="default" alt="пусто">
-          <img class="popup__close-button" src="./images/mesto-close-icon.svg" alt="закрыть">
+          <img class="popup__close-button" src="<%=require('./images/mesto-close-icon.svg')%>" alt="закрыть">
           <figcaption class="popup__caption"></figcaption>
         </figure>
       </section>
@@ -72,7 +71,7 @@
     <template id="element">
       <figure class="elements__item element">
         <img class="element__photo" src="default" alt="пусто">
-        <img class="element__trash-button" src="./images/mesto-trash-icon.svg" alt="удалить">
+        <img class="element__trash-button" src="<%=require('./images/mesto-trash-icon.svg')%>" alt="удалить">
         <figcaption class="element__caption">
           <p class="element__caption-text"></p>
           <button class="element__like-button"></button>
@@ -85,6 +84,5 @@
     </footer>
 
   </div>
-  <script type="module" src="./scripts/index.js"></script>
 </body>
 </html>
