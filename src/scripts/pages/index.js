@@ -30,7 +30,8 @@ const popupImage = new PopupWithImage('.popup_type_element');
 const popupProfile = new PopupWithForm({
   popupSelector: '.popup_type_profile',
   submitter: (data) => {
-    profileInfo.setUserInfo(data);
+    const {"profile-name": name, "profile-title": job} = data;
+    profileInfo.setUserInfo({name, job});
     popupProfile.close();
   }
 });
@@ -38,7 +39,8 @@ const popupProfile = new PopupWithForm({
 const popupPlace = new PopupWithForm({
   popupSelector: '.popup_type_place',
   submitter: (data) => {
-    const card = createCard(data);
+    const {"place-name": name, "place-url": link} = data;
+    const card = createCard({name, link});
     cardList.addItem(card);
     popupPlace.close();
   }
