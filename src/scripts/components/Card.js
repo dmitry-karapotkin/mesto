@@ -30,6 +30,7 @@ export default class Card {
 
   _deleteElement () {
     this._element.remove();
+    this._element = null;
   }
 
   generateCard () {

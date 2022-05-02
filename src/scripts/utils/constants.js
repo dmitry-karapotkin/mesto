@@ -36,6 +36,10 @@ export const setting = {
 
 export const elementsSelector = '.elements';
 export const templateSelector = '#element';
+export const profile = {
+  nameSelector: '.profile-info__name',
+  jobSelector: '.profile-info__job'
+}
 
 export const addButton = document.querySelector('.profile__add-button');
 export const editButton = document.querySelector('.profile-info__edit-button');

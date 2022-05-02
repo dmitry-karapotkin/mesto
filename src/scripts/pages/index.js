@@ -12,34 +12,34 @@ import {
   elementsSelector,
   templateSelector,
   addButton,
-  editButton
+  editButton,
+  profile
 } from '../utils/constants.js';
 
 import { formValidators, enableValidation } from '../utils/utils.js';
 
 enableValidation(setting);
 
-const profileInfo = new UserInfo('.profile-info__name','.profile-info__job');
+const createCard = (item) => {
+  const card = new Card(item, templateSelector, popupImage.open.bind(popupImage));
+  return card.generateCard();
+}
+
+const profileInfo = new UserInfo(profile);
 const popupImage = new PopupWithImage('.popup_type_element');
 const popupProfile = new PopupWithForm({
   popupSelector: '.popup_type_profile',
-  submitter: (evt) => {
-    evt.preventDefault();
-    const nameJob = popupProfile._getInputValues();
-    profileInfo.setUserInfo(nameJob);
-    formValidators[popupProfile._form.getAttribute('name')].resetValidation();
+  submitter: (data) => {
+    profileInfo.setUserInfo(data);
     popupProfile.close();
   }
 });
 
 const popupPlace = new PopupWithForm({
   popupSelector: '.popup_type_place',
-  submitter: (evt) => {
-    evt.preventDefault();
-    const {firstInput: name, secondInput: link } = popupPlace._getInputValues();
-    const card = new Card({name, link}, templateSelector, popupImage.open.bind(popupImage));
-    cardList.addItem(card.generateCard());
-    popupPlace._form.reset();
+  submitter: (data) => {
+    const card = createCard(data);
+    cardList.addItem(card);
     popupPlace.close();
   }
 });
@@ -47,9 +47,8 @@ const popupPlace = new PopupWithForm({
 const cardList = new Section({
   items: initialCards,
   renderer: (item) => {
-    const card = new Card(item, templateSelector, popupImage.open.bind(popupImage));
-    const cardElement = card.generateCard();
-    cardList.addItem(cardElement);
+    const card = createCard(item);
+    cardList.addItem(card);
   }
 }, elementsSelector);
 
@@ -59,8 +58,14 @@ popupImage.setEventListeners();
 popupProfile.setEventListeners();
 popupPlace.setEventListeners();
 
-addButton.addEventListener('click', popupPlace.open.bind(popupPlace));
+addButton.addEventListener('click', () => {
+  formValidators[popupPlace._form.getAttribute('name')].resetValidation();
+  popupPlace.open();
+});
+
 editButton.addEventListener('click', () => {
-  profileInfo.getUserInfo(popupProfile);
+  formValidators[popupProfile._form.getAttribute('name')].resetValidation();
+  const inputValue = profileInfo.getUserInfo();
+  popupProfile._inputList.forEach(input => input.value = inputValue[input.id]);
   popupProfile.open();
 })
