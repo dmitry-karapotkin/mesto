@@ -1,7 +1,6 @@
 .popup__error_visible {
-  display: inline-block;
+  visibility: visible;
   max-width: 358px;
-  min-height: 35px;
 }
 
 @media (max-width: 767px) {
