@@ -15,10 +15,13 @@
 
 @import url(../blocks/profile-info/profile-info.css);
 @import url(../blocks/profile-info/__photo/profile-info__photo.css);
+@import url(../blocks/profile-info/__overlay/profile-info__overlay.css);
 @import url(../blocks/profile-info/__first-row/profile-info__first-row.css);
 @import url(../blocks/profile-info/__name/profile-info__name.css);
 @import url(../blocks/profile-info/__edit-button/profile-info__edit-button.css);
 @import url(../blocks/profile-info/__edit-icon/profile-info__edit-icon.css);
+@import url(../blocks/profile-info/__edit-icon/_size/profile-info__edit-icon_size_big.css);
+@import url(../blocks/profile-info/__edit-icon/_size/profile-info__edit-icon_size_small.css);
 @import url(../blocks/profile-info/__job/profile-info__job.css);
 
 @import url(../blocks/elements/elements.css);
@@ -28,16 +31,20 @@
 @import url(../blocks/element/__photo/element__photo.css);
 @import url(../blocks/element/__caption/element__caption.css);
 @import url(../blocks/element/__caption-text/element__caption-text.css);
+@import url(../blocks/element/__like/element__like.css);
 @import url(../blocks/element/__like-button/element__like-button.css);
 @import url(../blocks/element/__like-button/_active/element__like-button_active.css);
+@import url(../blocks/element/__like-number/element__like-number.css);
 @import url(../blocks/element/__trash-button/element__trash-button.css);
 
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/_type/popup_type_profile.css);
-@import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/_type/popup_type_place.css);
 @import url(../blocks/popup/_type/popup_type_element.css);
+@import url(../blocks/popup/_type/popup_type_delete.css);
+@import url(../blocks/popup/_type/popup_type_avatar.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__form/popup__form.css);
 @import url(../blocks/popup/__title/popup__title.css);
 @import url(../blocks/popup/__input/popup__input.css);
