@@ -1,12 +1,13 @@
-import '../../pages/index.css';
+import './index.css';
 
-import Card from '../components/Card.js';
-import PopupWithForm from '../components/PopupWithForm.js';
-import PopupWithImage from '../components/PopupWithImage.js';
-import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
-import Section from '../components/Section.js';
-import UserInfo from '../components/UserInfo.js';
-import Api from '../components/Api.js';
+import Card from '../scripts/components/Card.js';
+import PopupWithForm from '../scripts/components/PopupWithForm.js';
+import PopupWithImage from '../scripts/components/PopupWithImage.js';
+import PopupWithConfirmation from '../scripts/components/PopupWithConfirmation.js';
+import Section from '../scripts/components/Section.js';
+import UserInfo from '../scripts/components/UserInfo.js';
+import Api from '../scripts/components/Api.js';
+import FormValidator from '../scripts/components/FormValidator.js';
 
 import {
   setting,
@@ -17,16 +18,26 @@ import {
   editAvatarButton,
   profile,
   options
-} from '../utils/constants.js';
+} from '../scripts/utils/constants.js';
 
-import { formValidators, enableValidation } from '../utils/utils.js';
+const formValidators = {}
+
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement);
+    const formName = formElement.getAttribute('name');
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
 
 enableValidation(setting);
 
 const profileInfo = new UserInfo(profile);
 const api = new Api(options);
-const initialProfile = api.getInitialProfileInfo();
-const initialCards = api.getInitialCards();
+const initialProfile = api.getInitialProfileInfo().catch(err => console.log(err));;
+const initialCards = api.getInitialCards().catch(err => console.log(err));;
 
 let cardList = null;
 
@@ -42,7 +53,7 @@ const popupProfile = new PopupWithForm({
         profileInfo.setUserInfo({name, job});
         popupProfile.close();
       })
-      .catch((err) => console.log(`Ошибка: ${err}`));
+      .catch(err => console.log(err));
   }
 });
 
@@ -52,11 +63,11 @@ const popupPlace = new PopupWithForm({
     const {'place-name': name, 'place-url': link} = data;
     api.postCard({name, link})
       .then((data) => {
-        const card = createCard(data, api._userId);
+        const card = createCard(data, api.userId);
         cardList.addItem(card);
         popupPlace.close();
       })
-      .catch((err) => console.log(`Ошибка: ${err}`));
+      .catch(err => console.log(err));
   }
 });
 
@@ -70,22 +81,18 @@ const popupAvatar = new PopupWithForm({
         profileInfo.setAvatar(src);
         popupAvatar.close();
       })
-      .catch((err) => console.log(`Ошибка: ${err}`));
+      .catch(err => console.log(err));
   }
 });
 
 const popupConfirmation = new PopupWithConfirmation({
   popupSelector: '.popup_type_delete',
-  confirmDeletion: () => {
-    const cardId = popupConfirmation.getCardId();
-    api.deleteElement(cardId)
-      .then(res => {
-        if (res.ok) {
-          popupConfirmation.deleteCard();
-          popupConfirmation.close();
-        } else {
-          return Promise.reject(`Ошибка: ${res.status}`)
-        }
+  confirmDeletion: (card) => {
+    console.log(card);
+    api.deleteElement(card.id)
+      .then(() => {
+        popupConfirmation.deleteCard();
+        popupConfirmation.close();
       })
       .catch((err) => console.log(err));
   }
@@ -104,15 +111,15 @@ const createCard = (item, userId) => {
 }
 
 Promise.all([initialProfile, initialCards])
-  .then(data => {
-    const nameJob = {name: data[0].name, job: data[0].about };
+  .then(([userData, initialCards]) => {
+    const nameJob = {name: userData.name, job: userData.about };
     profileInfo.setUserInfo(nameJob);
-    profileInfo.setAvatar(data[0].avatar);
+    profileInfo.setAvatar(userData.avatar);
 
     cardList = new Section({
-      items: data[1],
+      items: initialCards,
       renderer: (item) => {
-        const card = createCard(item, api._userId);
+        const card = createCard(item, api.userId);
         cardList.addItem(card);
       }
     }, elementsSelector);
@@ -127,20 +134,18 @@ popupConfirmation.setEventListeners();
 popupAvatar.setEventListeners();
 
 addButton.addEventListener('click', () => {
-  formValidators[popupPlace._form.getAttribute('name')].resetValidation();
+  formValidators[popupPlace.getFormName()].resetValidation();
   popupPlace.open();
 });
 
 editProfileButton.addEventListener('click', () => {
-  formValidators[popupProfile._form.getAttribute('name')].resetValidation();
+  formValidators[popupProfile.getFormName()].resetValidation();
   const inputValue = profileInfo.getUserInfo();
-  popupProfile._inputList.forEach(input => input.value = inputValue[input.id]);
+  popupProfile.setInputValues(inputValue);
   popupProfile.open();
 })
 
 editAvatarButton.addEventListener('click', () => {
-  formValidators[popupAvatar._form.getAttribute('name')].resetValidation();
-  const inputValue = profileInfo.getAvatar();
-  popupAvatar._inputList.forEach(input => input.value = inputValue[input.id]);
+  formValidators[popupAvatar.getFormName()].resetValidation();
   popupAvatar.open();
 })

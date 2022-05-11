@@ -7,7 +7,7 @@ export default class Card {
     handleLikeClick
   ) {
     this._likes = likes.map(x => x['_id']);
-    this._id = _id;
+    this.id = _id;
     this._place = name;
     this._link = link;
     this._owner_id = owner._id;
@@ -30,16 +30,18 @@ export default class Card {
   _setEventListeners () {
     this._cardImage.addEventListener('click', () => this._handleCardClick(this._link, this._place));
     this._likeButton.addEventListener('click', (evt) => {
-      this._handleLikeClick(evt, this._id)
+      this._handleLikeClick(this)
         .then(data => {
-          this._element._likes = data.likes.map(x => x['_id']);
+          this._likes = data.likes.map(x => x['_id']);
           this._refreshLikeNumber();
+          this._toggleLikeButton();
         })
-        .catch((err) => console.log(`Ошибка: ${err}`));
+        .catch(err => console.log(err));
 
-      this._toggleLikeButton();
     });
-    this._trashButton.addEventListener('click', this._handleCardDelete);
+    this._trashButton.addEventListener('click', () => {
+      this._handleCardDelete(this);
+    });
   }
 
   _toggleLikeButton () {
@@ -47,7 +49,7 @@ export default class Card {
   }
 
   _refreshLikeNumber () {
-    this._likeNumber.textContent = this._element._likes.length;
+    this._likeNumber.textContent = this._likes.length;
   }
 
   _isOwner(userId) {
@@ -55,15 +57,15 @@ export default class Card {
   }
 
   generateCard (userId) {
-    this._element = this._getTemplate();
-    this._element._likes = this._likes;
-    this._trashButton = this._element.querySelector('.element__trash-button');
-    this._likeButton = this._element.querySelector('.element__like-button');
-    this._cardImage = this._element.querySelector('.element__photo');
-    this._likeNumber = this._element.querySelector('.element__like-number');
+    this.element = this._getTemplate();
+    this._likes = this._likes;
+    this._trashButton = this.element.querySelector('.element__trash-button');
+    this._likeButton = this.element.querySelector('.element__like-button');
+    this._cardImage = this.element.querySelector('.element__photo');
+    this._likeNumber = this.element.querySelector('.element__like-number');
     this._cardImage.src = this._link;
     this._cardImage.alt = this._place.toLowerCase();
-    this._element.querySelector('.element__caption-text').textContent = this._place;
+    this.element.querySelector('.element__caption-text').textContent = this._place;
 
     this._refreshLikeNumber();
     this._setEventListeners();
@@ -71,15 +73,13 @@ export default class Card {
     if (!this._isOwner(userId)) {
       this._trashButton.remove();
       delete this._trashButton;
-    } else {
-      this._element._id = this._id;
     };
 
-    if (this._element._likes.includes(userId)) {
+    if (this._likes.includes(userId)) {
       this._likeButton.classList.add('element__like-button_active')
     };
 
-    return this._element;
+    return this.element;
   }
 
 }

@@ -4,18 +4,21 @@ export default class Api {
     this._headers = headers;
   }
 
+  _checkResponse (res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
+
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers : {
         authorization: this._headers.authorization
       }
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`)})
-      .catch(err => console.log(err));
+      .then(this._checkResponse)
+
   }
 
   getInitialProfileInfo() {
@@ -24,16 +27,11 @@ export default class Api {
         authorization: this._headers.authorization
       }
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`)})
+      .then(this._checkResponse)
       .then(data => {
-        this._userId = data._id;
+        this.userId = data._id;
         return data;
       })
-      .catch(err => console.log(err));
 
   }
 
@@ -46,12 +44,8 @@ export default class Api {
         about: job
       })
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`)})
-    .catch(err => console.log(err));
+    .then(this._checkResponse)
+
   }
 
   editAvatar(url) {
@@ -62,12 +56,8 @@ export default class Api {
         avatar: url
       })
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`)})
-    .catch(err => console.log(err));
+    .then(this._checkResponse)
+
   }
 
   postCard({name, link}) {
@@ -79,12 +69,7 @@ export default class Api {
         link: link
       })
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`)})
-    .catch(err => console.log(err));
+    .then(this._checkResponse)
 
   }
 
@@ -98,28 +83,23 @@ export default class Api {
 
   }
 
-  handleLikeClick(evt, cardId) {
+  handleLikeClick(card) {
     let method = '';
-    const likes = evt.target.closest('.element')._likes;
+    const likes = card._likes;
 
-    if (likes.includes(this._userId)) {
+    if (likes.includes(this.userId)) {
       method = 'DELETE'
     } else {
       method = 'PUT'
     };
 
-    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+    return fetch(`${this._baseUrl}/cards/${card.id}/likes`, {
       method: method,
       headers : {
         authorization: this._headers.authorization
       }
     })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`)})
-    .catch(err => console.log(err));
+    .then(this._checkResponse)
   }
 
 }
