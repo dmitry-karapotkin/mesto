@@ -1,6 +1,7 @@
 .element__like {
-  width: 24px;
+  width: 22px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
